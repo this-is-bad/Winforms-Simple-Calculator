@@ -21,5 +21,6 @@ namespace WinForms_SimpleCalculator
         {
             this.Close();
         }
+
     }
 }

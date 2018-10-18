@@ -117,4 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lbl_Instructions.Text" xml:space="preserve">
+    <value>Use the number pad or click the 
+textbox and type to enter a positive
+numeric value in the textbox.
+
+Select a radio button to choose the 
+type of calculation to perform.
+
+Use the combo box to select the 
+unit of measure.
+
+Click the Calc button to perform the 
+calculation.</value>
+  </data>
 </root>
