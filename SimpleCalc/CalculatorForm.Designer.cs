@@ -224,7 +224,7 @@
             this.txt_Value1.Name = "txt_Value1";
             this.txt_Value1.Size = new System.Drawing.Size(166, 30);
             this.txt_Value1.TabIndex = 15;
-            this.txt_Value1.TextChanged += new System.EventHandler(this.txt_value1_TextChanged);
+            this.txt_Value1.TextChanged += new System.EventHandler(this.txt_Value1_TextChanged);
             // 
             // btn_Close
             // 

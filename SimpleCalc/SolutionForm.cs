@@ -17,6 +17,12 @@ namespace WinForms_SimpleCalculator
             InitializeComponent();
         }
 
+        public SolutionForm(string calculatedValue)
+        {
+            InitializeComponent();
+            DisplayResult(calculatedValue);
+        }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -25,6 +31,11 @@ namespace WinForms_SimpleCalculator
         public void DisplayResult(TextBox txt)
         {
             lbl_Result.Text = txt.Text;
+        }
+
+        public void DisplayResult(string result)
+        {
+            lbl_Result.Text = result;
         }
     }
 }

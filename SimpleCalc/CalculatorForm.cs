@@ -28,8 +28,8 @@ namespace WinForms_SimpleCalculator
 
         enum EnMet
         {
-            English,
-            Metric
+            feet,
+            meters
         }
 
         private void Btn_Num0_Click(object sender, EventArgs e)
@@ -87,6 +87,10 @@ namespace WinForms_SimpleCalculator
             InsertCharacter('.');
         }
 
+        /// <summary>
+        /// Adds a character to txt_Value1's text value
+        /// </summary>
+        /// <param name="s"></param>
         public void InsertCharacter(Char s)
         {
             if (s == '.' && txt_Value1.Text.Contains("."))
@@ -100,7 +104,6 @@ namespace WinForms_SimpleCalculator
                     new_index = (old_index < new_index) ? new_index - 1 : new_index;
                 }
 
-                
                 txt_Value1.Text = txt_Value1.Text.Insert(new_index, s.ToString());
             }
             else
@@ -109,7 +112,13 @@ namespace WinForms_SimpleCalculator
             }
         }
 
-        public bool ValidateNumeric(Control control, out string message)
+        /// <summary>
+        /// Validates a control's text value as a numeric value
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="message"></param>
+        /// <returns>bool</returns>
+        public bool ValidateNumeric(Control control, bool checkForEmpty, out string message)
         {
             bool result = false;
             string str = control.Text;
@@ -130,6 +139,11 @@ namespace WinForms_SimpleCalculator
                 message = "Invalid entry.  Please limit input to numbers and a decimal point.";
                 errorProvider1.SetError(control, message);
             }
+            else if (checkForEmpty && str == "")
+            {
+                message = "Calculation cannot be performed on an empty value.";
+                errorProvider1.SetError(control, message);
+            }
             else
             {
                 result = true;
@@ -146,14 +160,28 @@ namespace WinForms_SimpleCalculator
             this.Close();
         }
 
+        /// <summary>
+        /// Click event for btn_Calculate
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Calculate_Click(object sender, EventArgs e)
         {
-            SolutionForm solutionForm = new SolutionForm();
-            passNumberDelegate pnd = new passNumberDelegate(solutionForm.DisplayResult);
-            pnd(this.txt_Value1);
-            solutionForm.ShowDialog();
+            ManageErrors(true);
+
+            if (txt_Value1.Text != "")
+            {
+                //SolutionForm solutionForm = new SolutionForm(GenerateResult(this.txt_Value1.Text));
+                SolutionForm solutionForm = new SolutionForm(GenerateResult(this.txt_Value1.Text));
+                solutionForm.ShowDialog();
+            }
         }
 
+        /// <summary>
+        /// Click event for btn_Help
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Help_Click(object sender, EventArgs e)
         {
             HelpForm helpForm = new HelpForm();
@@ -161,14 +189,32 @@ namespace WinForms_SimpleCalculator
             helpForm.ShowDialog();
         }
 
+        /// <summary>
+        /// Click event for btn_Clear
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Clear_Click(object sender, EventArgs e)
         {
             txt_Value1.Clear();
         }
 
-        private void txt_value1_TextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Text changed event for txt_Value1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt_Value1_TextChanged(object sender, EventArgs e)
         {
-            if (!ValidateNumeric(txt_Value1, out string error_message))
+            ManageErrors(false);
+        }
+
+        /// <summary>
+        /// Determines when to show and hide the error message on txt_Value1
+        /// </summary>
+        private void ManageErrors(bool checkForEmpty)
+        {
+            if (!ValidateNumeric(txt_Value1, checkForEmpty, out string error_message))
             {
                 lbl_Error.Text = error_message;
                 lbl_Error.Visible = true;
@@ -179,5 +225,124 @@ namespace WinForms_SimpleCalculator
                 lbl_Error.Visible = false;
             }
         }
+
+
+        /// <summary>
+        /// Convert integer to a binary string
+        /// </summary>
+        /// <param name="baseTenInput"></param>
+        /// <returns>string</returns>
+        private string ConvertIntegerToBinary(string baseTenInput)
+        {
+            int baseTenAmount = 0;
+            string result = "";
+            int remainingAmount = 0;
+            int powerOfTwo = 0;
+
+            try
+            {
+                if (Int32.TryParse(baseTenInput, out baseTenAmount))
+                {
+                    if (baseTenAmount == 0)
+                    {
+                        result = "0";
+                    }
+                    else
+                    {
+                        // conversion process begins here
+                        powerOfTwo = CalcMinPower(baseTenAmount, 2);
+                        remainingAmount = baseTenAmount;
+
+                        for (int i = 0; powerOfTwo >= 0; i++)
+                        {
+                            // Initially, compares value supplied by user against exponent of 2 returned by CalcMaxPower
+                            if (remainingAmount >= (Math.Pow(2, powerOfTwo)))
+                            {
+                                result += "1";
+                                remainingAmount -= ((int)Math.Pow(2, powerOfTwo)); 
+                            }
+
+                            // If first value of the above if statement is false, this statement prevents the insertion of a leading zero into the string
+                            else if (i != 0)
+                            {
+                                result += "0";
+                            }
+
+                            // Apply a space between every four characters of binary number
+                            if (powerOfTwo % 4 == 0 && powerOfTwo > 0 && i != 0) 
+                            {
+                                result += " ";
+                            }
+
+                            powerOfTwo--;
+                            i++;
+                        }                                              
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" +
+                    ex.GetType().ToString() + "\n" +
+                    ex.StackTrace, "Exception");
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Convert integer to a hexadecimal string
+        /// </summary>
+        /// <param name="baseTenInput"></param>
+        /// <returns>string</returns>
+        private string ConvertIntegerToHex(string baseTenInput)
+        {
+            string result = "";
+
+            try
+            {
+                result = int.Parse(baseTenInput).ToString("X"); 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" +
+                    ex.GetType().ToString() + "\n" +
+                    ex.StackTrace, "Exception");
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Calculate the minimum exponent of a given base necessary to contain an integer value
+        /// </summary>
+        /// <param name="baseTenAmount"></param>
+        /// <param name="baseN"></param>
+        /// <returns>int</returns>
+        public int CalcMinPower(int baseTenAmount, int baseN)
+        {
+            int p;
+            for (p = 0; Math.Pow(baseN, p) < baseTenAmount; p++)
+            { }
+            return p;
+        }
+
+        /// <summary>
+        /// Create a string that holds the formatted result of a calculation
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns>string</returns>
+        private string GenerateResult(string input)
+        {
+            string result = "";
+            result = ConvertIntegerToHex(input);
+            return result;
+        }
+
+        private string GenerateAreaFromCircleRadiusAnswer()
+        {
+            string result= "";
+
+            return result;
+        }
+
     }
 }
