@@ -496,7 +496,7 @@ namespace WinForms_SimpleCalculator
             string result= "";
             string uOM = cmb_UnitOfMeasure.SelectedItem.ToString();
             string calculatedValue = CalculateAreaFromCircleRadiusAnswer(input).ToString();
-            result = $"The area of a cirlce that has a radius of {input} {uOM} is {calculatedValue} square {uOM}.";
+            result = $"The area of a circle that has a radius of {input} {uOM} is {calculatedValue} square {uOM}.";
             return result;
         }
 
