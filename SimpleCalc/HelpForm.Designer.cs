@@ -40,7 +40,7 @@
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Close.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Close.ForeColor = System.Drawing.Color.Chartreuse;
-            this.btn_Close.Location = new System.Drawing.Point(93, 278);
+            this.btn_Close.Location = new System.Drawing.Point(93, 340);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(57, 30);
             this.btn_Close.TabIndex = 0;
@@ -53,7 +53,7 @@
             this.lbl_Title.AutoSize = true;
             this.lbl_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Title.ForeColor = System.Drawing.Color.Chartreuse;
-            this.lbl_Title.Location = new System.Drawing.Point(11, 24);
+            this.lbl_Title.Location = new System.Drawing.Point(11, 17);
             this.lbl_Title.Name = "lbl_Title";
             this.lbl_Title.Size = new System.Drawing.Size(198, 20);
             this.lbl_Title.TabIndex = 1;
@@ -64,9 +64,9 @@
             this.lbl_Instructions.AutoSize = true;
             this.lbl_Instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Instructions.ForeColor = System.Drawing.Color.Chartreuse;
-            this.lbl_Instructions.Location = new System.Drawing.Point(12, 56);
+            this.lbl_Instructions.Location = new System.Drawing.Point(12, 51);
             this.lbl_Instructions.Name = "lbl_Instructions";
-            this.lbl_Instructions.Size = new System.Drawing.Size(216, 192);
+            this.lbl_Instructions.Size = new System.Drawing.Size(220, 272);
             this.lbl_Instructions.TabIndex = 2;
             this.lbl_Instructions.Text = resources.GetString("lbl_Instructions.Text");
             // 
@@ -75,11 +75,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(70)))));
-            this.ClientSize = new System.Drawing.Size(242, 320);
+            this.ClientSize = new System.Drawing.Size(242, 382);
             this.Controls.Add(this.lbl_Instructions);
             this.Controls.Add(this.lbl_Title);
             this.Controls.Add(this.btn_Close);
-            this.MaximumSize = new System.Drawing.Size(258, 358);
+            this.MaximumSize = new System.Drawing.Size(258, 420);
             this.Name = "HelpForm";
             this.Text = "Instructions";
             this.ResumeLayout(false);

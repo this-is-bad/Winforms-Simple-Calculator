@@ -122,11 +122,16 @@
 textbox and type to enter a positive
 numeric value in the textbox.
 
-Select a radio button to choose the 
-type of calculation to perform.
+Select a calculation to display a set 
+of calculation choices. 
 
-Use the combo box to select the 
-unit of measure.
+Select a calculation choice radio 
+button to choose the type of 
+calculation to perform.
+
+For geometry calculations, use the 
+unit of measure combo box to 
+select the unit of measure.
 
 Click the Calc button to perform the 
 calculation.</value>
