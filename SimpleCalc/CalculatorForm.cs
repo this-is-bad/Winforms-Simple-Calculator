@@ -189,7 +189,7 @@ namespace WinForms_SimpleCalculator
             string str = control.Text;
             message = "";
 
-            if (performPreCalcChecks || str != "" )
+            if (performPreCalcChecks || str != "")
             {
                 if (str.Contains("-"))
                 {
@@ -213,7 +213,7 @@ namespace WinForms_SimpleCalculator
                 }
                 else
                 {
-                    if (str != ".")                        
+                    if (str != "." && !str.Contains("."))
                     {
                         long i;
 
@@ -231,8 +231,12 @@ namespace WinForms_SimpleCalculator
                         }
                         else
                         {
-                            message = "An error occurred.  Please check your value and try again."; 
+                            message = "An error occurred.  Please check your value and try again.";
                         }
+                    }
+                    else
+                    {
+                        result = true;
                     }
                 }
             }
@@ -536,7 +540,7 @@ namespace WinForms_SimpleCalculator
         {
             string result= "";
             string calculatedValue = ConvertIntegerToHex(input);
-            result = $"The binary value of {input} is {calculatedValue}.";
+            result = $"The hexadecimal value of {input} is {calculatedValue}.";
             return result;
         }
 
