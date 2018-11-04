@@ -341,6 +341,17 @@ namespace WinForms_SimpleCalculator
             return errorExists;
         }
 
+        /// <summary>
+        /// Removes negative values and decimal points from numeric strings
+        /// </summary>
+        /// <param name="baseTenInput"></param>
+        /// <returns>string</returns>
+        private string CleanForConversion(string baseTenInput)
+        {
+            string result = Math.Round(Math.Abs(double.Parse(baseTenInput))).ToString();
+
+            return result;
+        }
 
         /// <summary>
         /// Convert integer to a binary string
@@ -348,7 +359,7 @@ namespace WinForms_SimpleCalculator
         /// <param name="baseTenInput"></param>
         /// <returns>string</returns>
         private string ConvertIntegerToBinary(string baseTenInput)
-        {
+        {          
             int baseTenAmount = 0;
             string result = "";
             int remainingAmount = 0;
@@ -556,6 +567,7 @@ namespace WinForms_SimpleCalculator
         /// </summary>
         private void ShowHideCalcRadioButtons(string calcType)
         {
+            string baseTenInput = txt_Value1.Text;
             switch (calcType)
             {
                 case "geometry" :
@@ -565,6 +577,7 @@ namespace WinForms_SimpleCalculator
                     rb_CalcAreaFromSide.Visible = true;
                     rb_CalcIntToBinary.Visible = false;
                     rb_CalcIntToHex.Visible = false;
+                    rb_CalcAreaFromRadius.Checked = true;
                     break;
                 case "conversion":
                     cmb_UnitOfMeasure.Visible = false;
@@ -573,7 +586,12 @@ namespace WinForms_SimpleCalculator
                     rb_CalcAreaFromSide.Visible = false;
                     rb_CalcIntToBinary.Visible = true;
                     rb_CalcIntToHex.Visible = true;
+                    rb_CalcIntToBinary.Checked = true;                   
                     break;
+            }
+            if (!ErrorsExist(false) && calcType == "conversion")
+            {
+                txt_Value1.Text = CleanForConversion(baseTenInput);
             }
         }
     }
